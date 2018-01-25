@@ -58,6 +58,7 @@ def set_parameters(args):
     convert_files(source_dir, css_path_option)
     
 def convert_files(source_dir, css_path_option):
+    data_dir_option = '--data-dir=%s' % ROOT_PATH
     log_n_notify_user("Converting markdown to HTML ...")
     for directory, subdirectories, files in os.walk(source_dir):
         for file in fnmatch.filter(files, "*.md"):
@@ -73,7 +74,7 @@ def convert_files(source_dir, css_path_option):
                 outputfile=target_name,
                 to='html',
                 format='markdown_github',
-                extra_args=(css_path_option, '-s'),
+                extra_args=(css_path_option, '-s', data_dir_option),
                 filters=[LINK_FILTER])
                 
             logger.info("Converted from %(src)s to %(dst)s." % { "src": src_name, "dst": target_name })
