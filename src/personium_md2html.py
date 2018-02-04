@@ -40,30 +40,33 @@ def parse_command():
     parser = argparse.ArgumentParser(description=temp_msg)    
     
     temp_msg = 'Specify the locale of your github.css.'
-    parser.add_argument('--locale', help=temp_msg, choices=SUPPORTED_LOCALES, default="en")
-    
     parser.add_argument('--source_dir', default=CURRENT_PATH, help=argparse.SUPPRESS)
     parser.add_argument('--data_dir', default=ROOT_PATH, help=argparse.SUPPRESS) 
-    parser.add_argument('--template', default='%s/templates/default.html' % ROOT_PATH) 
-    
+    parser.add_argument('--template', default='%s/templates/default.html' % ROOT_PATH)
+    parser.add_argument('--css', help="File's path or URL", action='append', default=[])
+
     parser.set_defaults(func=set_parameters)
 
     args = parser.parse_args()
     args.func(args)
     
 def set_parameters(args):
+    logger.info('### Arguments from command line ### %s' % args)
     source_dir = args.source_dir
-    css_path = '/%s/github.css' % args.locale
     
-    css_path_option = '-c%s' % css_path
     templates_path_dir = args.data_dir
     template_file = args.template
-
-    convert_files(source_dir, css_path_option, templates_path_dir, template_file)
- 
-def convert_files(source_dir, css_path_option, templates_path_dir, template_file):
     data_dir_option = '--data-dir=%s' % templates_path_dir
     template_option = '--template=%s' % template_file
+    extra_args_list = ['-s', template_option, data_dir_option]#.extend(args.css_path)
+    for item in args.css:
+        extra_args_list.append('--css=%s' % item)
+        
+    logger.info('### extra_args ### %s' % extra_args_list)
+
+    convert_files(source_dir, extra_args_list)
+ 
+def convert_files(source_dir, extra_args_list):
     log_n_notify_user("Converting markdown to HTML ...")
     for directory, subdirectories, files in os.walk(source_dir):
         for file in fnmatch.filter(files, "*.md"):
@@ -79,7 +82,7 @@ def convert_files(source_dir, css_path_option, templates_path_dir, template_file
                 outputfile=target_name,
                 to='html',
                 format='markdown_github',
-                extra_args=(css_path_option, '-s', template_option, data_dir_option),
+                extra_args=extra_args_list,
                 filters=[LINK_FILTER])
                 
             logger.info("Converted from %(src)s to %(dst)s." % { "src": src_name, "dst": target_name })

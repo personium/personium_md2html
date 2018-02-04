@@ -63,14 +63,18 @@ An example when I ran display the help in Windows 10.
 ## How it works  
 1. Move to the directory that contains markdown file(s).  
 1. Execute the following command.  
-    - Default is to use English CSS (/en/github.css)  
+    - Default  
 
             > python <path to md2html folder>/personium_md2html.py 
 
-    - To use English CSS (/en/github.css)   
+    - To specify one CSS file (/default/personium.css)  
         
-            > python <path to md2html folder>/personium_md2html.py --locale en
+            > python <path to md2html folder>/E:\work\personium_md2html\src>python personium_md2html.py --css=/default/personium.css
 
-    - To use Japanese CSS (/ja/github.css)  
+    - To more CSS files (/default/personium.css and /default/en/personium.css)  
 
-            > python <path to md2html folder>/personium_md2html.py --locale ja
+            > python <path to md2html folder>/E:\work\personium_md2html\src>python personium_md2html.py --css=/default/personium.css --css=/default/en/personium.css
+            
+## Advance example  
+To specify the template for conversion.  
+        > python personium_md2html.py --template=/default/templates/default.html" --css=/default/personium.css --css=/default/en/personium.css
