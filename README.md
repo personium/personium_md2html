@@ -49,15 +49,16 @@ By the way, this tool automatically converts README.md to index.html.
 An example when I ran display the help in Windows 10.  
 
     > python personium_md2html.py --help
-    usage: personium_md2html.py [-h] [--locale {en,ja}]
-
+    usage: personium_md2html.py [-h] [--template TEMPLATE] [--css CSS]
+    
     Convert markdown file(s) to HTML file(s) recursively in a directory where this
     command is executed.
-
+    
     optional arguments:
-      -h, --help        show this help message and exit
-      --locale {en,ja}  Specify the locale of your github.css.
-
+      -h, --help           show this help message and exit
+      --template TEMPLATE
+      --css CSS            File's path or URL
+    
     >
 
 ## How it works  
@@ -77,4 +78,5 @@ An example when I ran display the help in Windows 10.
             
 ## Advance example  
 To specify the template for conversion.  
-        > python personium_md2html.py --template=/default/templates/default.html" --css=/default/personium.css --css=/default/en/personium.css
+
+    > python personium_md2html.py --template=/default/templates/default.html" --css=/default/personium.css --css=/default/en/personium.css
