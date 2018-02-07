@@ -49,28 +49,34 @@ By the way, this tool automatically converts README.md to index.html.
 An example when I ran display the help in Windows 10.  
 
     > python personium_md2html.py --help
-    usage: personium_md2html.py [-h] [--locale {en,ja}]
-
+    usage: personium_md2html.py [-h] [--template TEMPLATE] [--css CSS]
+    
     Convert markdown file(s) to HTML file(s) recursively in a directory where this
     command is executed.
-
+    
     optional arguments:
-      -h, --help        show this help message and exit
-      --locale {en,ja}  Specify the locale of your github.css.
-
+      -h, --help           show this help message and exit
+      --template TEMPLATE
+      --css CSS            File's path or URL
+    
     >
 
 ## How it works  
 1. Move to the directory that contains markdown file(s).  
 1. Execute the following command.  
-    - Default is to use English CSS (/en/github.css)  
+    - Default  
 
             > python <path to md2html folder>/personium_md2html.py 
 
-    - To use English CSS (/en/github.css)   
+    - To specify one CSS file (/default/personium.css)  
         
-            > python <path to md2html folder>/personium_md2html.py --locale en
+            > python <path to md2html folder>/E:\work\personium_md2html\src>python personium_md2html.py --css=/default/personium.css
 
-    - To use Japanese CSS (/ja/github.css)  
+    - To more CSS files (/default/personium.css and /default/en/personium.css)  
 
-            > python <path to md2html folder>/personium_md2html.py --locale ja
+            > python <path to md2html folder>/E:\work\personium_md2html\src>python personium_md2html.py --css=/default/personium.css --css=/default/en/personium.css
+            
+## Advance example  
+To specify the template for conversion.  
+
+    > python personium_md2html.py --template=/default/templates/default.html" --css=/default/personium.css --css=/default/en/personium.css
